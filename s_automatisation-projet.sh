@@ -6,9 +6,14 @@ echo '''  _____ _____   ____   _____ _    _       _______
 | |__| | | \ \| |__| | |____| |  | |/ ____ \| |   
  \_____|_|  \_\\____/ \_____|_|  |_/_/    \_\_|  '''
 
+echo " "
 echo "nom du dossier:"
 read dossier
-mkdir -p $dossier/public/{img/,js/,sass/,fonts/,css/} && touch $dossier/index.html $dossier/public/sass/app.sass $dossier/public/sass/_fonts.sass $dossier/public/sass/_variables.sass $dossier/public/sass/_header.sass $dossier/public/sass/_main.sass $dossier/public/sass/_footer.sass $dossier/public/sass/_style.sass $dossier/public/sass/_icons.sass
+echo "nom du depot"
+read depot
+echo "username du github"
+read nom
+mkdir -p $dossier/public/{img/,js/,sass/,fonts/,css/} && touch $dossier/index.html $dossier/public/css/minireset.css $dossier/public/sass/app.sass $dossier/public/sass/_fonts.sass $dossier/public/sass/_variables.sass $dossier/public/sass/_header.sass $dossier/public/sass/_main.sass $dossier/public/sass/_footer.sass $dossier/public/sass/_style.sass $dossier/public/sass/_icons.sass $dossier/public/sass/_media.sass
 cd $dossier/
 npm init -y
 npm install bootstrap
@@ -16,16 +21,31 @@ npm install @popperjs/core
 npm install @fortawesome/fontawesome-free
 sudo chmod -R 777 ../$dossier
 cd public/sass
-echo "
-@import '../../node_modules/bootstrap/scss/bootstrap.scss'
+echo "@import '../../node_modules/bootstrap/scss/bootstrap.scss'
+@import '../css/minireset.css'
 @import '_variables.sass'
 @import '_fonts.sass'
 @import '_icons.sass'
-@import '_styles.sass'
+@import '_style.sass'
 @import '_header.sass'
 @import '_main.sass'
 @import '_footer.sass'
+@import '_media.sass'
 " > app.sass
+echo '$fa-font-path : "../../node_modules/@fortawesome/fontawesome-free/webfonts"
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss"
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss"
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss"
+' > _icons.sass
+echo '@import "_variables.sass"' > _style.sass
+echo '@import "_variables.sass"' > _header.sass
+echo '@import "_variables.sass"' > _main.sass
+echo '@import "_variables.sass"' > _footer.sass
+echo '@import "_variables.sass"' > _media.sass
+cd ../css
+echo '/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select{margin:0}html{box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}img,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+' > minireset.css
 cd ../../
 echo '
 <!DOCTYPE html>
@@ -35,7 +55,7 @@ echo '
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/style.style.css">
+    <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -60,4 +80,9 @@ echo '
 
 </html>
 '   > index.html
-code .
+git init
+git add --all
+git commit -m "first comit "
+git branch -m main
+git remote add origin https://github.com/$nom/$depot.git
+git push -u origin main
