@@ -32,5 +32,13 @@ then
         npm install bootstrap
         npm install @popperjs/core
         npm install @fortawesome/fontawesome-free
+        echo "@import '../../node_modules/bootstrap/scss/bootstrap.scss'" >> src/sass/app.sass
+        echo '$fa-font-path : "../../node_modules/@fortawesome/fontawesome-free/webfonts"
+@import "../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss"
+@import "../../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss"
+@import "../../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
+@import "../../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss"' >> src/sass/modules/icons.sass
+        echo "<script src="./node_modules/@popperjs/core/dist/umd/popper.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>" >> index.html
     fi
 fi
